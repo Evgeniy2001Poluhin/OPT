@@ -1,217 +1,197 @@
-🔐 OTP Protection Service
+<!-- README.md for OTP Protection Service -->
 
-Java backend-сервис для генерации, рассылки и проверки одноразовых паролей (OTP). Поддерживает Email, SMS (SMPP-эмулятор), Telegram и сохранение в файл.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Evgeniy2001Poluhin/OPT/main/assets/otp-banner.png" alt="OTP Protection Service" width="600" />
+</p>
 
-📋 Содержание
+<p align="center">
+  <a href="https://github.com/Evgeniy2001Poluhin/OPT/actions"><img src="https://img.shields.io/github/actions/workflow/status/Evgeniy2001Poluhin/OPT/ci.yml?branch=main" alt="Build Status"></a>
+  <a href="https://img.shields.io/badge/Java-17-blue"><img src="https://img.shields.io/badge/Java-17-blue" alt="Java 17"></a>
+  <a href="https://img.shields.io/badge/Maven-3.x-green"><img src="https://img.shields.io/badge/Maven-3.x-green" alt="Maven"></a>
+  <a href="https://img.shields.io/badge/PostgreSQL-17-blue"><img src="https://img.shields.io/badge/PostgreSQL-17-blue" alt="PostgreSQL 17"></a>
+  <a href="https://img.shields.io/badge/License-MIT-yellow.svg"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"></a>
+</p>
 
-✨ Функционал
+# 🔐 OTP Protection Service
 
-🚀 Технологии
+Java backend-сервис для генерации, рассылки и проверки одноразовых паролей (OTP). Поддерживает Email, SMS (SMPP-эмулятор), Telegram и локальное сохранение кодов.
 
-🛠 Установка и запуск
+---
 
-🔧 Конфигурация
+## 📋 Содержание
 
-⚡ Использование
+* [✨ Функционал](#✨-функционал)
+* [🚀 Технологии](#🚀-технологии)
+* [🛠 Установка и запуск](#🛠-установка-и-запуск)
+* [🔧 Конфигурация](#🔧-конфигурация)
+* [⚡ Использование](#⚡-использование)
+* [🗂 Структура проекта](#🗂-структура-проекта)
+* [📖 Примеры API](#📖-примеры-api)
+* [🧪 Тестирование](#🧪-тестирование)
+* [👤 Автор](#👤-автор)
+* [📄 Лицензия](#📄-лицензия)
 
-🗂 Структура проекта
+---
 
-📖 Примеры API
+## ✨ Функционал
 
-🧪 Тестирование
+* **Роли**: ADMIN и USER с разграничением доступа
+* **Генерация и отправка OTP** через:
 
-👤 Автор
+  * Email (JavaMail)
+  * SMS (OpenSMPP-core + SMPPsim)
+  * Telegram Bot API
+  * Локальное сохранение в файл для отладки
+* **Проверка OTP** с учётом статусов: `ACTIVE`, `USED`, `EXPIRED`
+* **Админ-панель**:
 
-📄 Лицензия
+  * Настройка длины кода и времени жизни (TTL)
+  * Управление пользователями и ролями
+* **Токенная авторизация**: Bearer-токены с проверкой ролей
+* **Логирование** всех операций (SLF4J + Logback)
 
-✨ Функционал
+---
 
-Роли и доступ: ADMIN и USER
+## 🚀 Технологии
 
-Отправка OTP:
+* **Java 17**
+* **PostgreSQL 17** (JDBC)
+* **Maven** (сборка)
+* **HTTP-сервер**: com.sun.net.httpserver
+* **Email**: JavaMail
+* **SMS**: OpenSMPP-core + SMPPsim
+* **Telegram Bot API**: Apache HttpClient
+* **Логирование**: SLF4J + Logback
 
-Email (JavaMail)
+---
 
-SMS (OpenSMPP-core + SMPPsim)
+## 🛠 Установка и запуск
 
-Telegram Bot API
+1. Клонировать репозиторий:
 
-Сохранение в локальный файл
+   ```bash
+   git clone https://github.com/Evgeniy2001Poluhin/OPT.git
+   cd OPT
+   ```
+2. Установить Java 17 и PostgreSQL 17
+3. Создать базу данных:
 
-Проверка OTP: статусы ACTIVE, USED, EXPIRED
+   ```sql
+   CREATE DATABASE otp_service;
+   ```
+4. Скопировать и настроить файлы в `src/main/resources`:
 
-Админ-панель:
+   * `application.properties` (настройки БД)
+   * `email.properties` (SMTP)
+   * `sms.properties` (SMPP)
+   * `telegram.properties` (токен и chatId)
+5. Собрать и запустить:
 
-Настройка длины кода и TTL
+   ```bash
+   mvn clean package
+   java -jar target/otp-backend.jar
+   ```
 
-Управление пользователями
+Сервис запустится на `http://localhost:8080`.
 
-Токенная авторизация: Bearer-токены
+---
 
-Логирование: SLF4J + Logback
+## 🔧 Конфигурация
 
-🚀 Технологии
+Файл `src/main/resources/application.properties`:
 
-Компонент
-
-Версия / Библиотека
-
-Java
-
-17
-
-PostgreSQL (JDBC)
-
-17
-
-Maven
-
-3.x
-
-HTTP Server
-
-com.sun.net.httpserver
-
-Email
-
-JavaMail
-
-SMS
-
-OpenSMPP-core + SMPPsim
-
-Telegram API
-
-Apache HttpClient
-
-Логирование
-
-SLF4J + Logback
-
-🛠 Установка и запуск
-
-Клонировать:
-
-git clone https://github.com/Evgeniy2001Poluhin/OPT.git
-cd OPT
-
-Настроить:
-
-Java 17 и PostgreSQL 17
-
-Создать БД:
-
-CREATE DATABASE otp_service;
-
-Заполнить src/main/resources:
-
-application.properties (БД)
-
-email.properties (SMTP)
-
-sms.properties (SMPP)
-
-telegram.properties (токен и chatId)
-
-Сборка и запуск:
-
-mvn clean package
-java -jar target/otp-backend.jar
-
-Сервис на http://localhost:8080.
-
-🔧 Конфигурация
-
-# src/main/resources/application.properties
-
-db.url=jdbc:postgresql://localhost:5432/otp_service
+```properties
+# Параметры PostgreSQL
+ db.url=jdbc:postgresql://localhost:5432/otp_service
  db.user=postgres
  db.password=<ваш_пароль>
+```
 
-Аналогично для email.properties, sms.properties, telegram.properties.
+Аналогично заполнить `email.properties`, `sms.properties`, `telegram.properties`.
 
-⚡ Использование
+---
 
-Регистрация:
+## ⚡ Использование
 
+1. **Регистрация**:
+
+```bash
 curl -X POST http://localhost:8080/register \
-  -H "Content-Type: application/json" \
-  -d '{"username":"user1","password":"pass123","role":"USER"}'
+-H "Content-Type: application/json" \
+-d '{"username":"user1","password":"pass123","role":"USER"}'
+```
 
-Логин:
+2. **Логин**:
 
+```bash
 curl -X POST http://localhost:8080/login \
-  -H "Content-Type: application/json" \
-  -d '{"username":"user1","password":"pass123"}'
+-H "Content-Type: application/json" \
+-d '{"username":"user1","password":"pass123"}'
+```
 
-Генерация OTP:
+3. **Генерация OTP**:
 
+```bash
 curl -X POST http://localhost:8080/otp/generate \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"operationId":"op123","channel":"EMAIL"}'
+-H "Authorization: Bearer $TOKEN" \
+-H "Content-Type: application/json" \
+-d '{"operationId":"op123","channel":"EMAIL"}'
+```
 
-Проверка OTP:
+4. **Проверка OTP**:
 
+```bash
 curl -X POST http://localhost:8080/otp/validate \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"code":"123456"}'
+-H "Authorization: Bearer $TOKEN" \
+-H "Content-Type: application/json" \
+-d '{"code":"123456"}'
+```
 
-🗂 Структура проекта
 
-OPT/
-├── src/main/java/otp/
-│   ├── api/        # HTTP-контроллеры
-│   ├── config/     # Конфигурации
-│   ├── dao/        # JDBC-доступ к БД
-│   ├── model/      # DTO и сущности
-│   ├── service/    # Бизнес-логика
-│   └── util/       # Утилиты
-└── src/main/resources/
-    ├── application.properties
-    ├── email.properties
-    ├── sms.properties
-    ├── telegram.properties
-    └── logback.xml
+---
 
-pom.xml
-README.md
+## 📖 Примеры API
 
-📖 Примеры API
+**Админ: изменить параметры OTP**
 
-Admin: настройка OTP
-
+```bash
 curl -X PATCH http://localhost:8080/admin/config \
-  -H "Authorization: Bearer <ADMIN_TOKEN>" \
-  -H "Content-Type: application/json" \
-  -d '{"length":6,"ttlSeconds":300}'
+-H "Authorization: Bearer <ADMIN_TOKEN>" \
+-H "Content-Type: application/json" \
+-d '{"length":6,"ttlSeconds":300}'
+```
 
-Admin: управление пользователями
+**Админ: управление пользователями**
 
-# Просмотр
+```bash
 curl -X GET http://localhost:8080/admin/users \
-  -H "Authorization: Bearer <ADMIN_TOKEN>"
-# Удаление
+-H "Authorization: Bearer <ADMIN_TOKEN>"
+```
+
+```bash
 curl -X DELETE http://localhost:8080/admin/users/{id} \
-  -H "Authorization: Bearer <ADMIN_TOKEN>"
+-H "Authorization: Bearer <ADMIN_TOKEN>"
+```
 
-🧪 Тестирование
+---
 
-Используйте Postman или curl для всех сценариев:
+## 🧪 Тестирование
 
-Регистрация / Логин
+Проверить через **Postman** или **curl**:
 
-Генерация / Отправка OTP
+* Регистрация и логин
+* Генерация и отправка OTP
+* Проверка кодов
+* Админ-функции
 
-Валидация кодов
+---
 
-Админ-функции
+## 👤 Автор
 
-👤 Автор
+**Евгений Полухин**
+GitHub: [https://github.com/Evgeniy2001Poluhin](https://github.com/Evgeniy2001Poluhin)
+Telegram: [https://t.me/EvgeniyPoluhin](https://t.me/EvgeniyPoluhin)
 
-<<<<<<< HEAD
-Евгений ПолухинGitHub: Evgeniy2001PoluhinTelegram: @EvgeniyPoluhin
-=======
-Евгений ПолухинGitHub: Evgeniy2001PoluhinTelegram: @EvgeniyPoluhin
->>>>>>> f1bc3555d20cfc78a96166f767c2aa30e411bc67
+---
+
+
