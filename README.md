@@ -1,6 +1,6 @@
 🔐 OTP Protection Service
 
-Java backend-сервис для генерации, рассылки и проверки одноразовых паролей (OTP). Поддерживает отправку через Email, SMS (SMPP-эмулятор), Telegram и сохраняет коды в файл для отладки.
+Java backend-сервис для генерации, рассылки и проверки одноразовых паролей (OTP). Поддерживает Email, SMS (SMPP-эмулятор), Telegram и сохранение в файл.
 
 📋 Содержание
 
@@ -46,9 +46,9 @@ Telegram Bot API
 
 Управление пользователями
 
-Токенная авторизация (Bearer-токены)
+Токенная авторизация: Bearer-токены
 
-Логирование запросов и операций (SLF4J + Logback)
+Логирование: SLF4J + Logback
 
 🚀 Технологии
 
@@ -60,15 +60,15 @@ Java
 
 17
 
-СУБД
+PostgreSQL (JDBC)
 
-PostgreSQL 17 (JDBC)
-
-Сборка
+17
 
 Maven
 
-HTTP-сервер
+3.x
+
+HTTP Server
 
 com.sun.net.httpserver
 
@@ -80,7 +80,7 @@ SMS
 
 OpenSMPP-core + SMPPsim
 
-Telegram Bot API
+Telegram API
 
 Apache HttpClient
 
@@ -90,22 +90,22 @@ SLF4J + Logback
 
 🛠 Установка и запуск
 
-Клонировать репозиторий:
+Клонировать:
 
 git clone https://github.com/Evgeniy2001Poluhin/OPT.git
 cd OPT
 
-Настроить окружение:
+Настроить:
 
-Установить Java 17 и PostgreSQL 17
+Java 17 и PostgreSQL 17
 
 Создать БД:
 
 CREATE DATABASE otp_service;
 
-Скопировать и заполнить в src/main/resources:
+Заполнить src/main/resources:
 
-application.properties (параметры БД)
+application.properties (БД)
 
 email.properties (SMTP)
 
@@ -113,22 +113,22 @@ sms.properties (SMPP)
 
 telegram.properties (токен и chatId)
 
-Собрать и запустить:
+Сборка и запуск:
 
 mvn clean package
 java -jar target/otp-backend.jar
 
-По умолчанию сервис доступен на http://localhost:8080.
+Сервис на http://localhost:8080.
 
 🔧 Конфигурация
 
-Пример application.properties:
+# src/main/resources/application.properties
 
 db.url=jdbc:postgresql://localhost:5432/otp_service
-db.user=postgres
-db.password=<ваш_пароль>
+ db.user=postgres
+ db.password=<ваш_пароль>
 
-Файлы email.properties, sms.properties и telegram.properties содержат аналогичные параметры для своих сервисов.
+Аналогично для email.properties, sms.properties, telegram.properties.
 
 ⚡ Использование
 
@@ -158,9 +158,29 @@ curl -X POST http://localhost:8080/otp/validate \
   -H "Content-Type: application/json" \
   -d '{"code":"123456"}'
 
+🗂 Структура проекта
+
+OPT/
+├── src/main/java/otp/
+│   ├── api/        # HTTP-контроллеры
+│   ├── config/     # Конфигурации
+│   ├── dao/        # JDBC-доступ к БД
+│   ├── model/      # DTO и сущности
+│   ├── service/    # Бизнес-логика
+│   └── util/       # Утилиты
+└── src/main/resources/
+    ├── application.properties
+    ├── email.properties
+    ├── sms.properties
+    ├── telegram.properties
+    └── logback.xml
+
+pom.xml
+README.md
+
 📖 Примеры API
 
-Admin: настройка параметров OTP
+Admin: настройка OTP
 
 curl -X PATCH http://localhost:8080/admin/config \
   -H "Authorization: Bearer <ADMIN_TOKEN>" \
@@ -169,7 +189,7 @@ curl -X PATCH http://localhost:8080/admin/config \
 
 Admin: управление пользователями
 
-# Просмотр всех
+# Просмотр
 curl -X GET http://localhost:8080/admin/users \
   -H "Authorization: Bearer <ADMIN_TOKEN>"
 # Удаление
@@ -178,7 +198,7 @@ curl -X DELETE http://localhost:8080/admin/users/{id} \
 
 🧪 Тестирование
 
-Используйте Postman или curl для проверки всех сценариев:
+Используйте Postman или curl для всех сценариев:
 
 Регистрация / Логин
 
