@@ -210,4 +210,8 @@ curl -X DELETE http://localhost:8080/admin/users/{id} \
 
 👤 Автор
 
+<<<<<<< HEAD
 Евгений ПолухинGitHub: Evgeniy2001PoluhinTelegram: @EvgeniyPoluhin
+=======
+Евгений ПолухинGitHub: Evgeniy2001PoluhinTelegram: @EvgeniyPoluhin
+>>>>>>> f1bc3555d20cfc78a96166f767c2aa30e411bc67
