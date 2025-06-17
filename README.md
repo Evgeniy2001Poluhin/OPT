@@ -84,28 +84,6 @@ java -jar target/otp-backend.jar
 
 После старта сервис будет слушать на порту 8080.
 
-🗂 Структура проекта
-
-OPT/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── otp/            # Основные пакеты
-│   │   │       ├── api/        # HTTP-контроллеры
-│   │   │       ├── config/     # Загрузка конфигураций
-│   │   │       ├── dao/        # JDBC-реализация доступа к БД
-│   │   │       ├── model/      # DTO и сущности
-│   │   │       ├── service/    # Бизнес-логика
-│   │   │       └── util/       # Утилиты
-│   │   └── resources/         # Файлы конфигураций
-│   │       ├── application.properties
-│   │       ├── email.properties
-│   │       ├── sms.properties
-│   │       ├── telegram.properties
-│   │       └── logback.xml
-├── pom.xml                    # Конфигурация Maven
-└── README.md                  # Это описание
-
 🔑 Роли и авторизация
 
 ADMIN:
